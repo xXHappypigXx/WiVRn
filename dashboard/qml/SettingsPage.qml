@@ -94,7 +94,7 @@ Kirigami.ScrollablePage {
                 id: bitrate
                 Kirigami.FormData.label: i18n("Bitrate:")
                 from: 1
-                to: 200
+                to: 2000
 
                 textFromValue: (value, locale) => i18nc("bitrate", "%1 Mbit/s", value)
                 valueFromText: function (text, locale) {
