@@ -146,19 +146,6 @@ vk::Format drm_to_vulkan_fmt(uint32_t drm_fourcc, int bit_depth)
 
 } // namespace
 
-int read_quality_from_file(const std::string& path, int default_quality = 50)
-{
-    std::ifstream file(path);
-    if (!file.is_open())
-        return default_quality;
-
-    int q = default_quality;
-    file >> q;
-
-    if (q < -1) q = -1;           // VAAPI allows -1..INT_MAX
-    return q;
-}
-
 video_encoder_va::video_encoder_va(wivrn_vk_bundle & vk,
                                    wivrn::encoder_settings & settings,
                                    float fps,
@@ -245,7 +232,7 @@ video_encoder_va::video_encoder_va(wivrn_vk_bundle & vk,
 			av_dict_set(&opts, "coder", "cavlc", 0);
 			av_dict_set(&opts, "rc_mode", "CBR", 0);
 			av_dict_set(&opts, "async_depth", "1", 0);
-			av_dict_set(&opts, "quality", std::to_string(read_quality_from_file("/home/user/vaapi.br", 50)).c_str(), 0);
+			av_dict_set(&opts, "quality", "50", 0);
 			encoder_ctx->rc_max_rate = settings.bitrate;
 			encoder_ctx->rc_buffer_size = 2 * settings.bitrate;
 			break;
