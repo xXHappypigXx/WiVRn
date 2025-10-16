@@ -231,7 +231,7 @@ video_encoder_va::video_encoder_va(wivrn_vk_bundle & vk,
 			encoder_ctx->profile = AV_PROFILE_H264_CONSTRAINED_BASELINE;
 			av_dict_set(&opts, "coder", "cavlc", 0);
 			av_dict_set(&opts, "rc_mode", "CBR", 0);
-			av_dict_set(&opts, "quality", "speed", 0);
+			//av_dict_set(&opts, "quality", "speed", 0);
 			encoder_ctx->rc_max_rate = settings.bitrate;
 			encoder_ctx->rc_buffer_size = 2 * settings.bitrate;
 			break;
@@ -264,7 +264,7 @@ video_encoder_va::video_encoder_va(wivrn_vk_bundle & vk,
 	encoder_ctx->gop_size = std::numeric_limits<decltype(encoder_ctx->gop_size)>::max();
 	encoder_ctx->hw_frames_ctx = av_buffer_ref(vaapi_frame_ctx.get());
 	
-	av_log_set_level(AV_LOG_VERBOSE);
+	//av_log_set_level(AV_LOG_VERBOSE);
 	err = avcodec_open2(encoder_ctx.get(), codec, &opts);
 	av_dict_free(&opts);
 	if (err < 0)
